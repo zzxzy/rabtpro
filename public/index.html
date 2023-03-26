@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <link rel="stylesheet" href="https://www.layuicdn.com/layui/css/layui.css">
+    <script src="https://www.layuicdn.com/layui/layui.js"></script>
+
+    <title>
+        <%= htmlWebpackPlugin.options.title %>
+    </title>
+
+
+</head>
+
+<body>
+    <!-- <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript> -->
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+    <script>
+        layui.use('carousel', function() {
+            var carousel = layui.carousel;
+
+            //建造实例
+            carousel.render({
+                elem: '#test1',
+                width: '100%' //设置容器宽度
+                    ,
+                height: '100%',
+                indicator: 'none',
+                // trigger: addEventListener('click', function() {
+                //     alert(1)
+                // }),
+                arrow: 'hover' //始终显示箭头
+                    //,anim: 'updown' //切换动画方式
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>
