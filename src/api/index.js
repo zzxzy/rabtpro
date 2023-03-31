@@ -19,7 +19,12 @@ export function getHd(data) {
 export function getLb() {
     return request({ url: '/home/banner' })
 }
-
+export function getnew() {
+    return request({ url: '/home/new' })
+}
+export function getgoods() {
+    return request({ url: '/home/goods' })
+}
 export function getCategoryList(data) {
     return request({ url: '/category', params: data, method: 'get' })
 }

@@ -1,52 +1,60 @@
 <template>
- 
-    <!-- 导航栏 -->
+  <!-- 导航栏 -->
   <div class="nav">
     <div class="wrapper">
       <h1>
-                <img src=" http://erabbit.itheima.net/img/logo.0940ebb5.png" alt="" class="p">
-            </h1>
+        <img
+          src=" http://erabbit.itheima.net/img/logo.0940ebb5.png"
+          alt=""
+          class="p"
+        />
+      </h1>
       <ul>
         <li>
           <router-link replace to="/">首页</router-link>
         </li>
         <li
-        @mouseover="showD(index)" @mouseout="hiD(index)"
+          @mouseover="showD(index)"
+          @mouseout="hiD(index)"
           v-for="(item, index) in navList"
-          :key="index"
-        >{{item.children.id}}
-         <router-link  replace :to="`/header/navigationbar/conta?id=${item.id}&id2=${item.children.id}`"> {{ item.name}}</router-link>
+          :key="index">
+          {{ item.children.id }}
+
+          <router-link :to="`conta?id=${item.id}&id2=${item.children.id}`">
+            {{ item.name }}</router-link
+          >
         </li>
       </ul>
       <div class="as">
-                <!-- <div>
+        <!-- <div>
                     <button class="q"></button>
                 </div> -->
-                <div style="box-shadow: rgb(170, 167, 167);position: 0,0;">
-                    <input type="text" placeholder="搜一搜">
-                </div>
-                <!-- <div>
+        <div style="box-shadow: rgb(170, 167, 167); position: 0, 0">
+          <input type="text" placeholder="搜一搜" />
+        </div>
+        <!-- <div>
                     <button class="gw"></button>
                 </div>
                 <div class="s">
                     2
                 </div> -->
-            </div>
+      </div>
     </div>
-    <router-view></router-view>
   </div>
-
 </template>
 
 <script>
-import {getHd} from '@/api/index.js';
+import { getHd } from "@/api/index.js";
 export default {
+  beforeRouteUpdate(to, from, next) {
+    console.log("Route updated:", to);
+    next();
+  },
   data() {
     return {
-        isDv: false,
+      isDv: false,
       navList: [],
       categoryList: [],
-     
     };
   },
   created() {
@@ -54,22 +62,32 @@ export default {
     //   this.navList = res[0].data.result;
     //   console.log(res[0].data.result);
     // });
-        getHd().then(res=>{
-          this.navList=res.data.result
-
-            console.log(res.data.result);
-        })
-        // let data={
-        //     "page":1,
-        //     "pageSize":20,
-        //     "categoryId":"1005000"
-        // }
-        // getTemp(data).then(res=>{
-        //     console.log(res);
-        // })
-    
+    this.csh();
+    // let data={
+    //     "page":1,
+    //     "pageSize":20,
+    //     "categoryId":"1005000"
+    // }
+    // getTemp(data).then(res=>{
+    //     console.log(res);
+    // })
+  },
+  watch: {
+    $route(newVal, oldval) {
+      if (newVal != oldval) {
+        this.csh();
+        console.log("Route changed:", newVal);
+      }
+    },
   },
   methods: {
+    csh() {
+      getHd().then((res) => {
+        this.navList = res.data.result;
+
+        console.log(res.data.result);
+      });
+    },
     // getNavList() {
     //   return this.$http.get(
     //     "https://apipc-xiaotuxian-front.itheima.net/home/category/head"
@@ -81,20 +99,20 @@ export default {
     //   );
     // },
     showD(x) {
-     if(x==0){
+      if (x == 0) {
         this.isDv = true;
-     }
-     if(x==1){
+      }
+      if (x == 1) {
         this.isDv = true;
-     }
+      }
     },
     hiD(x) {
-     if(x==0){
-        this.isDv=false
-     }
-     if(x==1){
-        this.isDv=false
-     }
+      if (x == 0) {
+        this.isDv = false;
+      }
+      if (x == 1) {
+        this.isDv = false;
+      }
     },
   },
 };
@@ -102,10 +120,10 @@ export default {
 
 <style scoped>
 .wrapper {
-    width: 1240px;
-    margin: 0 auto;
-    display: flex;
-    margin-bottom: 20px;
+  width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  margin-bottom: 20px;
 }
 .data-v {
   /* position: absolute;
@@ -115,27 +133,26 @@ export default {
   height: 132px;
   background-color: rgb(255, 255, 255);
 }
-.data-v li{
-    display: inline-block;
+.data-v li {
+  display: inline-block;
 }
 .nav {
   height: 128px;
   background-color: rgb(255, 255, 255);
-float: left;
-width: 100%;
+  float: left;
+  width: 100%;
 }
 
 .nav h1 .p {
   width: 240px;
   height: 76px;
-float: left;
+  float: left;
   line-height: 76px;
 }
 
 .nav h1 {
   padding-top: 10px;
   margin-right: 28px;
-
 }
 
 .nav ul {
@@ -144,13 +161,13 @@ float: left;
 }
 
 .nav li {
- width: 70px;
+  width: 70px;
   align-items: center;
   line-height: 110px;
-float: left;
+  float: left;
 }
 
-.nav .as div{
+.nav .as div {
   float: left;
   line-height: 110px;
 }

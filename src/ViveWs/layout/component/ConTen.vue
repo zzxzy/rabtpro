@@ -3,38 +3,14 @@
         <!-- 内容 -->
     <div class="banner2">
         <div class="wrapper">
-            <!-- <div class="ad">
-                <div class="a"></div>
-                <div class="b"></div>
-                <div class="c"></div>
-                <div class="d"></div>
-            </div> -->
             <ul>
-                <li>
+                <li v-for="item in jpglist" :key="item.id">
                     <a href="#">
-                        <img src="../uploads/new_goods_1.jpg" alt="">
-                        <h3>睿米无线吸尘器F8<br><span>899</span></h3>
+                        <img :src="`${item.picture}`" alt="">
+                        <h3>{{item.name}}<br><span>899</span></h3>
                     </a>
                 </li>
-                <li>
-                    <a href="#">
-                        <img src="../uploads/new_goods_2.jpg" alt="">
-                        <h3>智能环绕3D空调<br><span>31299</span></h3>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="../uploads/new_goods_3.jpg" alt="">
-                        <h3>广东软软糯米煲仔饭<br><span>19</span></h3>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="../uploads/new_goods_4.jpg" alt="">
-                        <h3>罗西机械智能手表<br>
-                            <span>3399</span></h3>
-                    </a>
-                </li>
+               
             </ul>
         </div>
     </div>
@@ -50,7 +26,7 @@
         </div>
     </div> -->
       <!-- 内容2 -->
-      <div class="banner3">
+      <!-- <div class="banner3">
         <div class="wrapper">
             <ul>
                 <li>
@@ -81,15 +57,26 @@
             </ul>
 
         </div>
-    </div>
+    </div> -->
 
 
     </div>
 </template>
 
 <script>
+import {getnew} from "@/api/index.js"
 export default {
-
+    data(){
+        return{
+            jpglist:[]
+        }
+    },
+    created(){
+        getnew().then(res=>{
+        this.jpglist=res.data.result
+console.log(res.data.result);
+    })
+}
 }
 </script>
 

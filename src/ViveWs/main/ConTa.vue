@@ -1,21 +1,25 @@
 <template>
   <div class="bdy">
     <div class="wrapper">
-    <div class="block">
+      <!-- <div class="block">
     <el-carousel height="400px">
       <el-carousel-item v-for="item in lblist" :key="item.id">
        <img :src="item.imgUrl" style="height: 400px;width: 100%;">
-      </el-carousel-item>
+      </el-carousel-item> 
     </el-carousel>
-  
+   </div> -->
+   <div style="height: 390px;">
+     ·
+    <lb></lb>
    </div>
-    <div class="qb">
+    <div class="qb" >
      
       <h1>全部分类</h1>
       <!-- <div>
           <img src="https://yanxuan.nosdn.127.net/3102b963e7a3c74b9d2ae90e4380da65.png?quality=95&imageView" alt="">
         </div> -->
       <div v-for="(item, index) in navList" :key="index">
+        item.name 
         <div>
           <span>{{ item.name }}</span>
           <img
@@ -28,62 +32,69 @@
       </div>
     
 
-    <div class="ck">
-      <h1>-茶卡酒具-</h1>
+    <div class="ck" v-for="item in nrList" :key="item.id">
+      <h1>{{ item.name }}</h1>
       <br />
       <h2>温暖柔软，品质之选</h2>
-      <div style="width: 130px; height: 170px">
+      <div style="width: 130px; height: 170px;display: flex;" v-for="value in item.goods" :key="value.id">
+        {{ value.name }}
         <img
           alt=""
-          src="https://yanxuan-item.nosdn.127.net/cd2a6c9db98f656eb0386f2cc9b0b2b5.png"
-          style="width: 150%; height: 100%"
+          :src="value.picture"
+          style="width: 150%; height: 100%;"
         />
       </div>
     </div>
-    <div class="sj">
-      <h1>-水具杯壶-</h1>
-      <br />
-      <h2>温暖柔软，品质之选</h2>
-      <div style="width: 130px; height: 170px">
-        <img
-          alt=""
-          src="https://yanxuan-item.nosdn.127.net/c09706c1e85dd2f5c9886b4f3e0cbbf0.png"
-          style="width: 150%; height: 100%"
-        />
-      </div>
-    </div>
-    <div class="sp">
-      <h1>-宠物食品-</h1>
-      <br />
-      <h2>温暖柔软，品质之选</h2>
-    </div>
-    <div class="yp">
-      <h1>-宠物用品-</h1>
-      <br />
-      <h2>温暖柔软，品质之选</h2>
-    </div>
+ 
   </div>
 </div>
 </template>
   
   <script>
 import { getLb,getCategoryList, getQbList } from "@/api/index.js";
+import lb from "./lb"
 export default {
   name: "ConTa",
   props: ["id,id2"],
   data() {
     return {
+      i:0,
       navList: [],
       lblist: [],
       zid:[],
+      nrList:[]
     };
   },
+  components:{
+lb
+  },
   watch: {
-    '$route' (to, from) {
+    $route(newVal, oldVal) {
     // 路由发生变化页面刷新
-    console.log(to,from);
-	this.$router.go(0);
+   if(newVal!=oldVal) {
+    getLb().then((res) => {
+      this.lblist=res.data.result
+      console.log(res.data.result);
+    })
+    let data = {
+      id: this.$route.query.id,
+    };
+    getCategoryList(data).then((res) => {
+      console.log(res.data.result);
+      this.navList = res.data.result.children;
+      this.nrList = res.data.result.children;
+     console.log(this.nrList);
+    });
+    // let qb={
+    //   id:this.$route.query.id
+    // }
+    // console.log(this.zid);
+    // getQbList(qb).then((res) => {
+    //   console.log(res);
+    // })
 		}
+    
+   
   },
   created() {
     // getHd().then((res) => {
@@ -95,6 +106,7 @@ export default {
       this.lblist=res.data.result
       console.log(res.data.result);
     });
+    
     // let z=this.$route.query.id
     console.log(this.$route.query.id);
     console.log(this.$route.query.id2);
@@ -104,7 +116,7 @@ export default {
     getCategoryList(data).then((res) => {
       this.navList = res.data.result.children;
 this.zid=res.data.result.children.id;
-     console.log(res);
+     console.log(this.navList);
     });
     let qb={
       id:this.zid
@@ -114,7 +126,7 @@ this.zid=res.data.result.children.id;
       console.log(res);
     })
   },
-};
+}}
 </script>
   
   <style scoped>
@@ -126,7 +138,10 @@ this.zid=res.data.result.children.id;
     /* background-color: aqua; */
 }
   .block{
-    height: 260px;
+    width: 1240px;
+     height: 260px; 
+    position: absolute;
+    display: inline-block;
   }
 .hz {
   margin: auto;
@@ -136,7 +151,7 @@ this.zid=res.data.result.children.id;
   place-content: center;
 }
 .bdy {
-  background-color: rgb(231, 236, 236);
+  background-color: rgb(39, 177, 177);
   /* width: 800px; */
 
 }
@@ -149,12 +164,14 @@ this.zid=res.data.result.children.id;
 }
 .qb div {
   float: left;
+  display: inline-block;
   width: 150px;
   height: 150px;
   background-color: rgb(253, 255, 254);
 }
 .ck {
   float: left;
+  display: inline-block;
   width: 100%;
   height: 300px;
   background-color: rgb(255, 255, 255);

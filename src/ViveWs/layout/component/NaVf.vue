@@ -3,7 +3,7 @@
    <div class="bannernav2">
         <div class="wrapper">
             <div class="left">
-                <h1>服饰</h1>
+                <h1>居家</h1>
             </div>
             <div class="right">
                 <ul>
@@ -42,8 +42,19 @@
 </template>
 
 <script>
+import {getgoods} from "@/api/index"
 export default {
-
+data(){
+    return{
+        jujalist:[]
+    }
+},
+created(){
+    getgoods().then(res=>{
+        this.jujalist = res.data.result[0]
+        console.log(res.data.result[0].goods[0].picture);
+    })
+}
 }
 </script>
 
