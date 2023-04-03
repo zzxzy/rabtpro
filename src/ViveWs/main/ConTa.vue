@@ -19,7 +19,7 @@
           <img src="https://yanxuan.nosdn.127.net/3102b963e7a3c74b9d2ae90e4380da65.png?quality=95&imageView" alt="">
         </div> -->
       <div v-for="(item, index) in navList" :key="index">
-        item.name 
+        <!-- item.name  -->
         <div>
           <span>{{ item.name }}</span>
           <img
@@ -34,15 +34,20 @@
 
     <div class="ck" v-for="item in nrList" :key="item.id">
       <h1>{{ item.name }}</h1>
+      <!-- <a style="text-align: right;"></a> -->
+      <router-link :to="`/sub?id=${item.id}`" style="text-align: right;" tag="p">查看全部</router-link>
       <br />
       <h2>温暖柔软，品质之选</h2>
-      <div style="width: 130px; height: 170px;display: flex;" v-for="value in item.goods" :key="value.id">
-        {{ value.name }}
+      <div style="width: 100%; height: 100%;display: flex;">
+        <div  v-for="value in item.goods" :key="value.id">
+          {{ value.name }}
         <img
           alt=""
           :src="value.picture"
-          style="width: 150%; height: 100%;"
+          style="width: 160px; height: 160px;"
         />
+        </div>
+        
       </div>
     </div>
  
@@ -51,7 +56,7 @@
 </template>
   
   <script>
-import { getLb,getCategoryList, getQbList } from "@/api/index.js";
+import { getLb,getCategoryList, getQbList,getCategorygoods } from "@/api/index.js";
 import lb from "./lb"
 export default {
   name: "ConTa",
@@ -69,6 +74,7 @@ export default {
 lb
   },
   watch: {
+    
     $route(newVal, oldVal) {
     // 路由发生变化页面刷新
    if(newVal!=oldVal) {
@@ -85,6 +91,13 @@ lb
       this.nrList = res.data.result.children;
      console.log(this.nrList);
     });
+    let u={
+      id:1005999003
+    }
+    getCategorygoods(u).then((res) => {
+
+console.log(res);
+});
     // let qb={
     //   id:this.$route.query.id
     // }
@@ -97,11 +110,10 @@ lb
    
   },
   created() {
-    // getHd().then((res) => {
-    //   this.navList = res.data.result[0].children;
+    getCategorygoods().then((res) => {
 
-    //   console.log(res.data.result[0].children[0].picture);
-    // });
+      console.log(res);
+    });
     getLb().then((res) => {
       this.lblist=res.data.result
       console.log(res.data.result);
@@ -146,18 +158,18 @@ this.zid=res.data.result.children.id;
 .hz {
   margin: auto;
   width: 80%;
-  background-color: rgb(255, 255, 255);
+
   display: grid;
   place-content: center;
 }
 .bdy {
-  background-color: rgb(39, 177, 177);
+  background-color: rgb(255, 255, 255);
   /* width: 800px; */
 
 }
 .qb h1 {
   text-align: center;
-  background-color: rgb(253, 255, 254);
+
 }
 .qb{
   margin-top: 140px;
@@ -167,14 +179,13 @@ this.zid=res.data.result.children.id;
   display: inline-block;
   width: 150px;
   height: 150px;
-  background-color: rgb(253, 255, 254);
+
 }
 .ck {
   float: left;
   display: inline-block;
   width: 100%;
-  height: 300px;
-  background-color: rgb(255, 255, 255);
+
   margin-bottom: 10px;
 }
 .ck h1,
@@ -185,7 +196,7 @@ h2 {
   float: left;
   width: 100%;
   height: 300px;
-  background-color: rgb(255, 255, 255);
+
 }
 .sj h1,
 h2 {

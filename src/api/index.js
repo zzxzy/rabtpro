@@ -25,10 +25,20 @@ export function getnew() {
 export function getgoods() {
     return request({ url: '/home/goods' })
 }
+
 export function getCategoryList(data) {
     return request({ url: '/category', params: data, method: 'get' })
 }
+export function getfilter(data) {
+    return request({ url: '/category/sub/filter', params: data, method: 'get' })
+}
+export function getproductgoods(data) {
+    return request({ url: '/goods', params: data, method: 'get' })
+}
+export function getCategorygoods(data) {
+    return request({ url: '/category/goods/temporary', data, method: 'post' })
+}
 //查看全部
 export function getQbList(data) {
-    return request({ url: '/category/sub/filter', params: data, method: 'get' })
+    return request({ url: '/category/sub/filter/', params: data, method: 'get' })
 }

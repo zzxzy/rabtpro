@@ -3,23 +3,11 @@
   <div class="banner">
     <div class="wrapper">
       <div class="left">
-        <ul>
-          <li  @mouseover="showDiv(index)" @mouseout="hidDiv()" v-for="(item,index) in navList" :key="index">
+        <ul >
+          <li class="ui"  @mouseover="showDiv(index)" @mouseout="hidDiv()" v-for="(item,index) in navList" :key="index">
             <a href="#">{{ item.name }}{{item.children[0].name  }}<span>＞</span></a>
-          </li>
-         
-        </ul>
-      </div> 
-      <div class="block" style="width: 100%;height: 100%;z-index: 1;">
-    <el-carousel height="500px">
-      <el-carousel-item v-for="im in lbz" :key="im.id">
-       <img :src="`${im.imgUrl }`" alt="" style="height:500px ;">
-      </el-carousel-item>
-    </el-carousel>
-  </div>
-      
-     
-      <div class="zs" v-show="isDiv" style="z-index: 2;">
+            <ul>
+              <div class="zs" v-show="isDiv" style="z-index: 2;">
         <div style="margin-top: 20px">
           <h2>分类推荐 <span class="xp">根据你的购买或游览推荐</span></h2>
         </div>
@@ -41,6 +29,21 @@
         </div>
       </div>
 
+            </ul>
+          </li>
+         
+        </ul>
+      </div> 
+      <div class="block" style="width: 100%;height: 100%;z-index: 1;">
+    <el-carousel height="500px">
+      <el-carousel-item v-for="im in lbz" :key="im.id">
+       <img :src="`${im.imgUrl }`" alt="" style="height:500px ;">
+      </el-carousel-item>
+    </el-carousel>
+  </div>
+      
+     
+     
     </div>
 
   </div>
@@ -96,6 +99,12 @@ export default {
 </script>
 
 <style scoped>
+.ui ul{
+  /* display: none; */
+}
+.ui:hover > ul{
+  display: block;
+}
 .wrapper {
     width: 1240px;
     margin: 0 auto;
@@ -141,7 +150,7 @@ export default {
 .zs {
     position: absolute;
     left: 376px;
-    top: 30;
+    top: 179px;
     background-color: rgba(255, 248, 248, 0.868);
   width: 1034px;
   height: 66%;
@@ -157,7 +166,7 @@ export default {
 }
 .banner {
   height: 628px;
-  background-color: cadetblue;
+  background-color: rgb(255, 255, 255);
   
   width: 100%;
 }
@@ -185,7 +194,7 @@ export default {
   display: inline-block;
   height: 50px;
   width: 100%;
-  line-height: 50px;
+  /* line-height: 50px; */
 }
 
 .banner li:hover {
