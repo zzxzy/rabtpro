@@ -40,6 +40,7 @@
       <h2>温暖柔软，品质之选</h2>
       <div style="width: 100%; height: 100%;display: flex;">
         <div  v-for="value in item.goods" :key="value.id">
+          <router-link :to="`/product?id=${item.id}`" tag="a">{{ item.id }}}</router-link>
           {{ value.name }}
         <img
           alt=""
@@ -109,7 +110,13 @@ console.log(res);
     
    
   },
-  created() {
+
+},
+created() {
+  getLb().then((res) => {
+      this.lblist=res.data.result
+      console.log(res.data.result);
+    })
     getCategorygoods().then((res) => {
 
       console.log(res);
@@ -126,9 +133,10 @@ console.log(res);
       id: this.$route.query.id,
     };
     getCategoryList(data).then((res) => {
+      console.log(res.data.result);
       this.navList = res.data.result.children;
-this.zid=res.data.result.children.id;
-     console.log(this.navList);
+      this.nrList = res.data.result.children;
+     console.log(this.nrList);
     });
     let qb={
       id:this.zid
@@ -137,8 +145,7 @@ this.zid=res.data.result.children.id;
     getQbList(qb).then((res) => {
       console.log(res);
     })
-  },
-}}
+  }}
 </script>
   
   <style scoped>

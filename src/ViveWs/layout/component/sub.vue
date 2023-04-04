@@ -28,7 +28,7 @@
     <a href="">评论最多</a>
     <a href="">价格排序</a>
    </div>
-    <div>
+    <div class="sx">
         <label>
             <input type="checkbox" name="hobbies" value="reading">
             仅显示有货商品
@@ -78,6 +78,8 @@ export default {
     }
     getCategorygoods(u).then((res) => {
 this.qblist=res.data.result.items
+let a = Object.prototype.toString;
+console.log(a.call(res.data.result.items));
 console.log(res.data);
 }),
 getfilter(u).then(res=>{
@@ -97,6 +99,10 @@ getfilter(u).then(res=>{
     width: 588px;
     height: 30px;
     display: flex;
+    margin-bottom: 20px;
+    margin-top: 40px;
+}
+.sx{
     margin-bottom: 20px;
     margin-top: 40px;
 }
